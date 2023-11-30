@@ -3,11 +3,13 @@ pipeline {
      stages {
         stage('Build') {
             steps {
+                sh'cd java-app'
                 sh 'mvn clean install'
             }
         }
         stage('Test') {
             steps {
+                sh'cd java-app'
                 sh 'mvn test'
             }
         }
