@@ -3,6 +3,8 @@ pipeline {
 
     tools {
 		jfrog 'jfrog-cli'
+        maven 'Maven 3.9.5'
+        jdk 'jdk8'
 	}
 	environment {
 		DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/demo-java-app:1.0.0"
