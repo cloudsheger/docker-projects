@@ -2,13 +2,10 @@ pipeline {
     agent any
 
     tools {
-		jfrog 'jfrog-cli'
         maven 'Maven 3.9.5'
         jdk 'jdk8'
 	}
-	environment {
-		DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/demo-python-app:1.0.0"
-	}
+	environment 
 
      stages {
         stage('Build') {
