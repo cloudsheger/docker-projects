@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         jfrog 'jfrog-cli'
-        maven 'Maven 3.9.5'
+        maven 'Maven 3.8.3'
         jdk 'jdk8'
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
