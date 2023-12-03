@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        jfrog 'jfrog-cli'
+        jfrog 'jfrog'
         maven 'Maven 3.8.3'
         jdk 'jdk8'
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
@@ -47,7 +47,7 @@ pipeline {
                     dir('java-app') {
                         // Assuming 'jf' is a shorthand for running JFrog CLI commands
                         // Corrected the syntax for scanning Docker images
-                        sh "jfrog rt docker-scan $DOCKER_IMAGE_NAME"
+                        sh "jfrog docker scan $DOCKER_IMAGE_NAME"
                         sh "docker push $DOCKER_IMAGE_NAME"
                     }
                 }
