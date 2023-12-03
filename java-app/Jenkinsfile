@@ -36,7 +36,7 @@ pipeline {
                 script {
                     dir('java-app') {
                         // Use the 'docker' tool to build the Docker image
-                        sh "docker build -t $DOCKER_IMAGE_NAME -f dockerfile ."
+                        sh "docker build -t $DOCKER_IMAGE_NAME ."
                     }
                 }
             }
