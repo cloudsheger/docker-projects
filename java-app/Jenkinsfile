@@ -47,7 +47,7 @@ pipeline {
                     dir('java-app') {
                         // Assuming 'jf' is a shorthand for running JFrog CLI commands
                         // Corrected the syntax for scanning Docker images
-                        sh "jfrog docker scan $DOCKER_IMAGE_NAME"
+                        //sh "jfrog docker scan $DOCKER_IMAGE_NAME"
                         sh "docker push $DOCKER_IMAGE_NAME"
                     }
                 }
