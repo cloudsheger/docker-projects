@@ -8,7 +8,7 @@ pipeline {
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
     environment {
-        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/demo-java-app:1.0.0"
+        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/hggosa.jfrog.io/docker/cloudsheger/jenkins-docker-latest:latest"
     }
 
     stages {
