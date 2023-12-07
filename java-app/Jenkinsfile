@@ -8,7 +8,36 @@ pipeline {
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
     environment {
-        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/java-app:1.0.0"
+       # Set Docker-related environment variables
+export DOCKER_REGISTRY="hggosa.jfrog.io"
+export DOCKER_REPO="docker-local"
+export DOCKER_IMAGE_NAME="demo-java-app"
+export DOCKER_IMAGE_TAG="1.0.0"
+
+# Set JFrog CLI-related environment variables
+export JFROG_CLI_HOME="$HOME/.jfrog"
+export JFROG_CLI_TEMP_DIR="$JFROG_CLI_HOME/temp"
+export JFROG_CLI_LOG_FILE="$JFROG_CLI_HOME/jfrog-cli.log"
+
+# Set JFrog Artifactory details
+export ARTIFACTORY_URL="https://your-artifactory-instance.com/artifactory"
+export ARTIFACTORY_USERNAME="your-artifactory-username"
+export ARTIFACTORY_PASSWORD="your-artifactory-password"
+
+# Set other environment variables as needed
+
+# Your Docker login command (replace placeholders with actual values)
+docker login -u "$ARTIFACTORY_USERNAME" -p "$ARTIFACTORY_PASSWORD" "$DOCKER_REGISTRY"
+
+# Build and push Docker image
+docker build -t "$DOCKER_REGISTRY/$DOCKER_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" .
+docker push "$DOCKER_REGISTRY/$DOCKER_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
+
+# Use JFrog CLI to publish build information
+jfrog rt bp demo-build-name demo-build-number
+
+# Clean up (optional)
+docker logout "$DOCKER_REGISTRY"
     }
 
     stages {
