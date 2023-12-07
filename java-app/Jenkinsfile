@@ -8,7 +8,7 @@ pipeline {
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
     environment {
-        "docker pull hggosa.jfrog.io/docker/cloudsheger/jenkins-docker-latest:latest"
+        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/demo-java-app:1.0.0"
     }
 
     stages {
@@ -36,7 +36,7 @@ pipeline {
                 script {
                     dir('java-app') {
                         // Use the 'docker' tool to build the Docker image
-                        sh "docker build -t cloudsheger/jenkins-docker-latest ."
+                        sh "docker build -t $DOCKER_IMAGE_NAME ."
                     }
                 }
             }
@@ -47,8 +47,8 @@ pipeline {
                     dir('java-app') {
                         // Assuming 'jf' is a shorthand for running JFrog CLI commands
                         // Corrected the syntax for scanning Docker images
-                        //sh "jfrog docker scan $DOCKER_IMAGE_NAME"
-                        sh "docker push cloudsheger/jenkins-docker-latest"
+                        sh "jfrog docker scan $DOCKER_IMAGE_NAME"
+                        sh "docker push $DOCKER_IMAGE_NAME"
                     }
                 }
             }
