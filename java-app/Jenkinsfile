@@ -8,7 +8,10 @@ pipeline {
         //docker 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
     environment {
-        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker-local/demo-java-app:1.0.0"
+        DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker/demo-java-app:2.0.0"
+        ARTIFACTORY_ACCESS_TOKEN = 'JFROG-API-TOKEN'
+        ARTIFACTORY_REPO_NAME = "hggosa.jfrog.io"
+
     }
 
     stages {
@@ -45,19 +48,14 @@ pipeline {
             steps {
                 script {
                     dir('java-app') {
-                        // Assuming 'jf' is a shorthand for running JFrog CLI commands
-                        // Corrected the syntax for scanning Docker images
-                        sh "jfrog docker scan $DOCKER_IMAGE_NAME"
-                        sh "docker push $DOCKER_IMAGE_NAME"
+                         
+                        echo "Building Docker image..."
+                        // Use Docker Pipeline plugin to authenticate with Docker registry
+                        docker.withRegistry("https://${ARTIFACTORY_REPO_NAME}", ARTIFACTORY_ACCESS_TOKEN) {
+                             //sh "docker build -f docker/Dockerfile -t $DOCKER_IMAGE_NAME ."
+                             sh "docker push $DOCKER_IMAGE_NAME"
+                        }
                     }
-                }
-            }
-        }
-        stage('Publish build info') {
-            steps {
-                script {
-                    // Assuming 'jf' is a shorthand for running JFrog CLI commands
-                    sh 'jfrog rt build-publish'
                 }
             }
         }
