@@ -1,5 +1,5 @@
 # Use the Maven image as a build stage
-FROM maven:3.-jdk-11-slim 
+FROM maven as build
 
 # Set up authentication for private Maven repository if needed
 # RUN echo "<your-username>:<your-password>" > /root/.m2/settings-security.xml
@@ -13,10 +13,10 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM openjdk:8-jdk-alpine
 
 # Copy the built artifact from the build stage
-COPY --from=build /home/app/target/demo-0.0.1-SNAPSHOT.jar /app/demo-0.0.1-SNAPSHOT.jar
+COPY --from=build /home/app/target/hello-world-java.jar /app/hello-world-java.jar
 
 # Set the working directory
 WORKDIR /app
 
 # Command to run the application
-CMD ["java", "-jar", "demo-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "hello-world-java.jar"]
