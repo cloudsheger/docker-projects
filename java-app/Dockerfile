@@ -1,5 +1,5 @@
 # Use the Maven image as a build stage
-FROM maven:3.8,3-jdk-11-slim 
+FROM maven:3.-jdk-11-slim 
 
 # Set up authentication for private Maven repository if needed
 # RUN echo "<your-username>:<your-password>" > /root/.m2/settings-security.xml

@@ -19,3 +19,5 @@ docker run --name jenkins-server --network monitor-net -d \
  -u root -p 8081:8080 -v /var/run/docker.sock:/var/run/docker.sock \
  -v jenkins-data:/var/jenkins_home \
  cloudsheger/jenkins-docker-latest:latest
+
+ # It is a bash script to install Jenkins server ONLY in docker 
