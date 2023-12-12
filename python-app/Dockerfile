@@ -17,13 +17,13 @@ RUN apt-get update && \
     apt-get install -y python3
 
 RUN mkdir -p /app
-WORKDIR /app
+WORKDIR /home/app
 
-COPY . .
+COPY . /home/app/
 
 
 EXPOSE 8080
 
 
 # Run launch.py when the container launches
-CMD ["python", "python-app/launch.py"]
+CMD ["python3", "python-app/launch.py"]
