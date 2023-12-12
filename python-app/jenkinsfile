@@ -8,13 +8,19 @@ pipeline {
         // dockerTool 'docker' // Assuming 'docker' is the tool name for Docker in your Jenkins configuration
     }
 
-    environment {
+environment {
         DOCKER_IMAGE_NAME = "hggosa.jfrog.io/docker/demo-python-app:2.0.0"
         ARTIFACTORY_ACCESS_TOKEN = 'JFROG-API-TOKEN'
         ARTIFACTORY_REPO_NAME = "hggosa.jfrog.io"
     }
 
     stages {
+        
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the specified repository and branch
+                git branch: 'cicd-project', credentialsId: 'JF_ACCESS_TOKEN', url: 'https://github.com/Hggosa/docker-projects.git'
+            }
         stage('Build') {
             steps {
                 script {
